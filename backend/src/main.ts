@@ -3,10 +3,14 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.enableCors({
-    origin: 'http://localhost:4000',
+    origin: '*', // ✅ Allow all origins, or configure properly for production
     credentials: true,
   });
-  await app.listen(process.env.PORT ?? 4001);
+
+  const port = process.env.PORT || 4000; // ✅ Use Railway-assigned port or default to 4000
+  await app.listen(port);
+  console.log(`🚀 Server running on port ${port}`);
 }
 bootstrap();
