@@ -5,12 +5,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: '*', // ✅ Allow all origins, or configure properly for production
+    origin: [process.env.CORS_ORIGIN ?? 'http://localhost:4000'],
     credentials: true,
   });
 
-  const port = process.env.PORT || 4000; // ✅ Use Railway-assigned port or default to 4000
+  const port = process.env.PORT || 4000;
   await app.listen(port);
-  console.log(`🚀 Server running on port ${port}`);
+  console.log(`✅ App is running on port ${port}`);
 }
 bootstrap();
